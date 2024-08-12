@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Resource = /** @class */ (function () {
     function Resource(name, unitCost, quantity, duration) {
         this.name = name;
@@ -7,7 +9,7 @@ var Resource = /** @class */ (function () {
     }
     // Get Budget Method
     Resource.prototype.getBudget = function () {
-        var durationInDays = parseInt(this.duration.split(" ")[0]);
+        var durationInDays = parseInt(this.duration.split(" ")[0], 10);
         return this.unitCost * this.quantity * durationInDays;
     };
     // Json representation
@@ -50,13 +52,14 @@ var Task = /** @class */ (function () {
         this.tasks.push(subTask);
     };
     Task.prototype.getBudget = function () {
+        var totalBudget = 0;
         if (this.resources) {
-            return this.resources.reduce(function (total, resource) { return total + resource.getBudget(); }, 0);
+            totalBudget += this.resources.reduce(function (total, resource) { return total + resource.getBudget(); }, 0);
         }
-        else if (this.tasks) {
-            return this.tasks.reduce(function (total, task) { return total + task.getBudget(); }, 0);
+        if (this.tasks) {
+            totalBudget += this.tasks.reduce(function (total, task) { return total + task.getBudget(); }, 0);
         }
-        return 0;
+        return totalBudget;
     };
     Task.prototype.toJSON = function () {
         return {

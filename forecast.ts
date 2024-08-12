@@ -1,4 +1,4 @@
-type Duration = `${number} days`;
+export type Duration = `${number} days`;
 
 class Resource {
   name: string;
@@ -20,7 +20,7 @@ class Resource {
 
   // Get Budget Method
   getBudget(): number {
-    const durationInDays = parseInt(this.duration.split(" ")[0]);
+    const durationInDays = parseInt(this.duration.split(" ")[0], 10);
     return this.unitCost * this.quantity * durationInDays;
   }
 
@@ -41,8 +41,8 @@ interface ITask {
   id: number;
   name: string;
   wbsId: string;
-  claimRef: string; // reference of the claim
-  contractSum: number; // total sum of the contract
+  claimRef: string;
+  contractSum: number;
   margin: number;
   resources?: Resource[] | null;
   tasks?: Task[] | null;
@@ -102,16 +102,22 @@ class Task implements ITask {
   }
 
   getBudget(): number {
+    let totalBudget = 0;
+
     if (this.resources) {
-      return this.resources.reduce(
+      totalBudget += this.resources.reduce(
         (total, resource) => total + resource.getBudget(),
         0
       );
-    } else if (this.tasks) {
-      return this.tasks.reduce((total, task) => total + task.getBudget(), 0);
+    }
+    if (this.tasks) {
+      totalBudget += this.tasks.reduce(
+        (total, task) => total + task.getBudget(),
+        0
+      );
     }
 
-    return 0;
+    return totalBudget;
   }
 
   toJSON() {
