@@ -7,4 +7,4 @@ const totalRevenue = jsonData.reduce(
   0
 );
 
-console.log("The total revenue generated is: ", totalRevenue);
+console.log(`The total revenue generated is: NRS. ${totalRevenue}`);
