@@ -18,4 +18,11 @@ export const totalSalesByProduct = jsonData.reduce(
   {} as { [key: string]: number }
 );
 
-console.log("The total sales for each product is:\n", totalSalesByProduct);
+// Format the output
+const formattedSales = Object.fromEntries(
+  Object.entries(totalSalesByProduct).map(
+    ([product, total]) =>
+      [product, `NRS. ${total?.toLocaleString()}`] as [string, string]
+  )
+);
+console.log("The total sales for each product is:\n", formattedSales);
