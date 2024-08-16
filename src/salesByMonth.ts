@@ -2,7 +2,11 @@
 import { jsonData } from "./loadData";
 import { type Data } from "./types";
 
-function getSalesByMonth(salesData: Data[], month: number, year: number) {
+import prompt from "prompt-sync";
+
+const input = prompt({ sigint: true });
+
+function getSalesByMonth(salesData: Data[], year: number, month: number) {
   const filteredData = salesData.filter((sale) => {
     const saleDate = new Date(sale.date);
     return saleDate.getMonth() + 1 === month && saleDate.getFullYear() === year;
@@ -11,7 +15,16 @@ function getSalesByMonth(salesData: Data[], month: number, year: number) {
   return filteredData;
 }
 
-let month = 2;
-let year = 2023;
-const filteredSales = getSalesByMonth(jsonData, month, year);
-console.log(`Sales Data for February ${year}:\n`, filteredSales);
+const userInput = input("Enter the date (YYYY-MM):  ");
+const [year, month] = userInput?.split("-").map(Number) ?? [0, 0];
+
+if (year === 0 || month === 0) {
+  console.error("Invalid date format. Please use YYYY-MM.");
+} else {
+  const filteredSales = getSalesByMonth(jsonData, year, month);
+
+  console.log(
+    `Sales Data for ${new Date(userInput).toISOString()}:\n`,
+    filteredSales
+  );
+}

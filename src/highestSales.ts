@@ -9,10 +9,8 @@ function getProductWithHighestSales(sales: { [key: string]: number }): string {
   }, Object.keys(sales)[0]);
 }
 
+const highestSalesProduct = getProductWithHighestSales(totalSalesByProduct);
+
 console.log(
-  `Product with highest total sales is: ${getProductWithHighestSales(
-    totalSalesByProduct
-  )} with sales: NRS. ${
-    totalSalesByProduct[getProductWithHighestSales(totalSalesByProduct)]
-  }`
+  `Product with highest total sales is: ${highestSalesProduct} with sales: NRS. ${totalSalesByProduct[highestSalesProduct]}`
 );
