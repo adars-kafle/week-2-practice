@@ -7,7 +7,7 @@
     "start:ts:highestSales": "ts-node src/highestSales.ts",
     "start:ts:forecast": "ts-node src/forecast.ts",
     "start:ts:salesByMonth": "ts-node src/salesByMonth.ts",
-    "start:ts:salesByProduct": "ts-node src/salesByProduct.ts",
+    "start:ts:salesByProduct": "cross-env SHOW_OUTPUT=true ts-node src/salesByProduct.ts",
     "start:ts:totalRevenue": "ts-node src/totalRevenue.ts"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^22.2.0",
+    "cross-env": "^7.0.3",
     "ts-node": "^10.9.2"
   }
 }
