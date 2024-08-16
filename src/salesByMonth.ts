@@ -15,25 +15,16 @@ function getSalesByMonth(salesData: Data[], year: number, month: number) {
   return filteredData;
 }
 
-// Function to format dates to ISO format
-function formatSalesToISO(sales: Data[]) {
-  return sales.map((sale) => ({
-    ...sale,
-    date: new Date(sale.date).toISOString(),
-  }));
-}
-
 const userInput = input("Enter the date (YYYY-MM):  ");
-const [inputYear, inputMonth] = userInput?.split("-").map(Number) ?? [0, 0];
+const [year, month] = userInput?.split("-").map(Number) ?? [0, 0];
 
-if (inputYear === 0 || inputMonth === 0) {
+if (year === 0 || month === 0) {
   console.error("Invalid date format. Please use YYYY-MM.");
 } else {
-  const filteredSales = getSalesByMonth(jsonData, inputYear, inputMonth);
-  const formattedSales = formatSalesToISO(filteredSales);
+  const filteredSales = getSalesByMonth(jsonData, year, month);
 
   console.log(
     `Sales Data for ${new Date(userInput).toISOString()}:\n`,
-    formattedSales
+    filteredSales
   );
 }
